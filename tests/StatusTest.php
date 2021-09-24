@@ -11,7 +11,7 @@ class StatusTest extends TestCase
     {
         $status = new Status();
         $status->setIsActive(true);
-        
+
         $this->assertTrue($status->isActive() === true);
     }
 }
