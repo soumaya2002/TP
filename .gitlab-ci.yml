@@ -37,17 +37,17 @@ twig-lint:
     allow_failure: false
 
 phpunit:
-    image: php:8.0-apache
+    image: php:7.4-apache
     stage: UnitTests
     services:
-        - name: mysql:8.0
+        - name: mysql:5.7
           alias: mysql
     variables:
-      MYSQL_ROOT_PASSWORD: pass_test
-      MYSQL_DATABASE: myapptest
-      MYSQL_USER: myapptest
-      MYSQL_PASSWORD: myapptest
-      DATABASE_URL: 'mysql://myapptest:myapptest@mysql:3306/myapptest'
+        MYSQL_ROOT_PASSWORD: pass_test
+        MYSQL_DATABASE: myapptest
+        MYSQL_USER: myapptest
+        MYSQL_PASSWORD: myapptest
+        DATABASE_URL: 'mysql://myapptest:myapptest@mysql:3306/myapptest'
     before_script:
         - apt-get update && apt-get install -y git libzip-dev
         - curl -sSk https://getcomposer.org/installer | php -- --disable-tls && mv composer.phar /usr/local/bin/composer
@@ -58,3 +58,4 @@ phpunit:
     script:
         - php bin/phpunit
     allow_failure: false
+
