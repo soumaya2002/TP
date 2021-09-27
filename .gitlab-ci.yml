@@ -57,5 +57,5 @@ phpunit:
         - php bin/console doctrine:migration:migrate --env=test --no-interaction
     script:
         - php bin/phpunit
-    allow_failure: true
+    allow_failure: false
 
