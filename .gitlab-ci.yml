@@ -2,6 +2,8 @@ image: jakzal/phpqa:php8.0
 
 before_script:
     - composer install
+    - php -v
+    - php -m
 
 cache:
     paths:
@@ -55,7 +57,9 @@ phpunit:
         - php bin/console doctrine:database:drop --if-exists --force --env=test
         - php bin/console doctrine:database:create --env=test
         - php bin/console doctrine:migration:migrate --env=test --no-interaction
+        - php -v
+        - php -m
     script:
-        - php bin/phpunit
+        - php bin/phpunit --testdox
     allow_failure: false
 
