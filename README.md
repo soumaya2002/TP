@@ -33,6 +33,8 @@ Création de la BDD de test :
 ```bash
 php bin/console doctrine:database:drop --env=test --if-exists --force
 php bin/console doctrine:database:create --env=test
+docker-compose --env-file .env.docker up -d --build
+docker exec -it --privileged sp-agri-pro_php-fpm /bin/bash
 ```
 
 ### 4) Compiler le theme graphique (optionel)
