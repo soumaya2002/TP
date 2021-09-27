@@ -39,7 +39,7 @@ twig-lint:
     allow_failure: false
 
 phpunit:
-    image: php:7.4-apache
+    image: php:8.0-apache
     stage: UnitTests
     services:
         - name: mysql:8.0
