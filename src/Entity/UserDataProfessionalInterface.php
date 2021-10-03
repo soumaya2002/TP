@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-interface UserDataCustomerInterface
+interface UserDataProfessionalInterface
 {
-    public function getAdresse(): ?string;
-    public function setAdresse(?string $_adresse): self;
+    public function getProfession(): ?string;
+    public function setProfession(?string $_profession): self;
 }
