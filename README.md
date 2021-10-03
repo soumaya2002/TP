@@ -29,7 +29,7 @@ Une fois les machines Dockers démarrées, entrer dans les containers pour lance
 ```bash
 docker exec -it --privileged sp-agri-pro_php-fpm /bin/bash
 ```
-> ⚠️ N'effectuer ces actions qu'en environnement de développement !
+> 📢️ N'effectuer ces actions qu'en environnement de développement !
 
 Puis lancer l'installation avec composer puis initilisation de la BDD (Fixtures, Data obligatoires), Reset de la BDD :
 ```bash
@@ -41,7 +41,7 @@ php bin/phpunit --testdox
 ```
 
 
-## ⚙️Testing [DEV]
+## 📑  ️Testing [DEV] 
 
 ### 1) Création de la BDD de test :
 
