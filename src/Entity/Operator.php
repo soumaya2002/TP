@@ -11,33 +11,69 @@
 
 namespace App\Entity;
 
-/**
- * Provides an object for UserApp Application Operator
- */
-class Operator implements UserAppInterface
-{
-    private string $firstName;
-    private string $lastName;
+use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Operator
+ *
+ * @ORM\Entity(repositoryClass=App\Repository\OperatorRepository")
+ */
+class Operator implements UserAppInterface, UserDataOperatorInterface
+{
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private int $id;
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private string $firstName;
     public function getFirstName(): string
     {
         return $this->firstName;
     }
 
-    public function setFirstsName(string $_firstName): UserAppInterface
+    public function setFirstsName(string $_firstName): self
     {
         $this->firstName = $_firstName;
         return $this;
     }
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    private string $lastName;
     public function getLastName(): string
     {
         return $this->lastName;
     }
 
-    public function setLastName(string $_lastName): UserAppInterface
+    public function setLastName(string $_lastName): self
     {
         $this->lastName = $_lastName;
+        return $this;
+    }
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private string $comments;
+    public function getComments(): ?string
+    {
+        return $this->comments;
+    }
+
+    public function setComment(?string $_comments): self
+    {
+        // TODO: Implement setComment() method.
+        $this->comments = $_comments;
         return $this;
     }
 }
