@@ -20,3 +20,8 @@
 ###< phpunit/phpunit ###
 
 phpdocker/data/mysql/db/
+
+###> squizlabs/php_codesniffer ###
+/.phpcs-cache
+/phpcs.xml
+###< squizlabs/php_codesniffer ###
