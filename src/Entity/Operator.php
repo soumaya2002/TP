@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Operator
  *
- * @ORM\Entity(repositoryClass=App\Repository\OperatorRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\OperatorRepository")
  */
 class Operator implements UserAppInterface, UserDataOperatorInterface
 {
