@@ -12,5 +12,5 @@ namespace App\Entity;
 interface UserDataOperatorInterface
 {
     public function getComments(): ?string;
-    public function setComment(?string $_comments): self;
+    public function setComment(?string $_comments = null): self;
 }

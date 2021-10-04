@@ -14,5 +14,5 @@ namespace App\Entity;
 interface UserDataProfessionalInterface
 {
     public function getProfession(): ?string;
-    public function setProfession(?string $_profession): self;
+    public function setProfession(?string $_profession = null): self;
 }
