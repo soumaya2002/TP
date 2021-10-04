@@ -1,3 +1,3 @@
 grumphp:
 #    tasks: { behat: null, codeception: null, composer: null, composer_script: null, composer_require_checker: null, doctrine_orm: null, eslint: null, phpcs: null, phpcsfixer: null, phpcsfixer2: null, phplint: null, phpparser: null, phpstan: null, phpunit: null, psalm: null, securitychecker_symfony: null, stylelint: null, twigcs: null }
-    tasks: { phpcs: null, phpstan: null, securitychecker_symfony: null, phpunit: {testsuite: grumphp} }
+    tasks: { phpcs: null, phpstan: null, securitychecker_symfony: null }
