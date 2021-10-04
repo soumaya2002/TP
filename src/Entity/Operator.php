@@ -40,9 +40,9 @@ class Operator implements UserAppInterface, UserDataOperatorInterface
         return $this->firstName;
     }
 
-    public function setFirstsName(string $_firstName): self
+    public function setFirstsName(string $firstName): self
     {
-        $this->firstName = $_firstName;
+        $this->firstName = $firstName;
         return $this;
     }
 
@@ -55,9 +55,9 @@ class Operator implements UserAppInterface, UserDataOperatorInterface
         return $this->lastName;
     }
 
-    public function setLastName(string $_lastName): self
+    public function setLastName(string $lastName): self
     {
-        $this->lastName = $_lastName;
+        $this->lastName = $lastName;
         return $this;
     }
 
