@@ -14,5 +14,5 @@ namespace App\Entity;
 interface UserDataCustomerInterface
 {
     public function getAdresse(): ?string;
-    public function setAdresse(?string $_adresse): self;
+    public function setAdresse(?string $_adresse = null): self;
 }

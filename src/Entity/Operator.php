@@ -40,7 +40,7 @@ class Operator implements UserAppInterface, UserDataOperatorInterface
         return $this->firstName;
     }
 
-    public function setFirstsName(string $firstName): self
+    public function setFirstsName(?string $firstName = null): self
     {
         $this->firstName = $firstName;
         return $this;
@@ -55,7 +55,7 @@ class Operator implements UserAppInterface, UserDataOperatorInterface
         return $this->lastName;
     }
 
-    public function setLastName(string $lastName): self
+    public function setLastName(string $lastName = null): self
     {
         $this->lastName = $lastName;
         return $this;
@@ -70,10 +70,18 @@ class Operator implements UserAppInterface, UserDataOperatorInterface
         return $this->comments;
     }
 
-    public function setComment(?string $_comments): self
+    public function setComment(?string $_comments = null): self
     {
         // TODO: Implement setComment() method.
         $this->comments = $_comments;
         return $this;
+    }
+
+    public function __construct()
+    {
+        $this->id = 0;
+        $this->firstName = '';
+        $this->lastName = '';
+        $this->comments = '';
     }
 }
