@@ -21,7 +21,7 @@ class OperatorTest extends TestCase
         $operator = new Operator();
 
         self::assertInstanceOf(Operator::class, $operator->setFirstsName('Brice'));
-        self::assertInstanceOf(Operator::class, $operator->setLastName(null));
+        self::assertInstanceOf(Operator::class, $operator->setLastName('POTE'));
         self::assertInstanceOf(Operator::class, $operator->setComment('Ceci est un commentaire'));
     }
 }
