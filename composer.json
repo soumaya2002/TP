@@ -88,6 +88,11 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "run-qa": [
+            "vendor/bin/phpcs --extensions=php --report=full src/Entity",
+            "vendor/bin/phpstan analyse --level=5 src/Entity",
+            "php bin/phpunit --testdox"
         ]
     },
     "conflict": {
