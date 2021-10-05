@@ -3,9 +3,9 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Operator;
-use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class OperatorTest extends TestCase
+class OperatorTest extends KernelTestCase
 {
     public function testDefaultValues(): void
     {
