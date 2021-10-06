@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class OperatorTest extends KernelTestCase
 {
-    public function testDefaultValues(): void
+    public function testIsEmpty(): void
     {
         $operator = new Operator();
 
