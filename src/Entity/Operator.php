@@ -104,6 +104,12 @@ final class Operator implements UserInterface, UserAppInterface, UserDataOperato
         return $this->password;
     }
 
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+        return $this;
+    }
+
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -171,5 +177,6 @@ final class Operator implements UserInterface, UserAppInterface, UserDataOperato
         $this->password = '';
         $this->salt = '';
         $this->plainTextPassword = '';
+        $this->username = '';
     }
 }
