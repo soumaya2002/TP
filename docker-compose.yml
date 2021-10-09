@@ -22,6 +22,21 @@ x-minio-common: &minio-common
 
 services:
 
+  blackfire:
+    image: blackfire/blackfire:2
+    ports: [ "${BLACKFIRE_HOSTS}" ]
+    command: blackfire curl http://webserver
+    environment:
+      # Exposes BLACKFIRE_* environment variables from the host
+      BLACKFIRE_SERVER_ID: ${BLACKFIRE_SERVER_ID}
+      BLACKFIRE_SERVER_TOKEN: ${BLACKFIRE_SERVER_TOKEN}
+      BLACKFIRE_CLIENT_ID: ${BLACKFIRE_CLIENT_ID}
+      BLACKFIRE_CLIENT_TOKEN: ${BLACKFIRE_CLIENT_TOKEN}
+      BLACKFIRE_LOG_LEVEL: ${BLACKFIRE_LOG_LEVEL}
+      BLACKFIRE_HOSTS: ${BLACKFIRE_LOG_LEVEL}
+    networks:
+      - node_net
+
   memcached:
     env_file: .env.local
     image: memcached:alpine
@@ -41,6 +56,8 @@ services:
       - MYSQL_PASSWORD=${MY_DB_PWD}
     ports:
       - "${PORT_HOST_MYSQL}:3306"
+    networks:
+      - node_net
 
 
   phpmyadmin:
@@ -56,6 +73,8 @@ services:
       - mysql
     depends_on:
       - mysql
+    networks:
+      - node_net
 
   webserver:
     env_file: .env.local
@@ -67,15 +86,28 @@ services:
       - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
       - "${PORT_HOST_APACHE}:80"
+    networks:
+      - node_net
 
   php-fpm:
     env_file: .env.local
-    build: phpdocker/php-fpm
+    build:
+      context: ./phpdocker/php-fpm
+      dockerfile: Dockerfile
+    environment:
+      BLACKFIRE_SERVER_ID: ${BLACKFIRE_SERVER_ID}
+      BLACKFIRE_SERVER_TOKEN: ${BLACKFIRE_SERVER_TOKEN}
+      BLACKFIRE_CLIENT_ID: ${BLACKFIRE_CLIENT_ID}
+      BLACKFIRE_CLIENT_TOKEN: ${BLACKFIRE_CLIENT_TOKEN}
+      BLACKFIRE_LOG_LEVEL: ${BLACKFIRE_LOG_LEVEL}
+      BLACKFIRE_HOSTS: ${BLACKFIRE_LOG_LEVEL}
     container_name: ${CONTAIN_NAME}php-fpm
     working_dir: /application
     volumes:
       - .:/application
       - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/8.0/fpm/conf.d/99-overrides.ini
+    networks:
+      - node_net
 
   redis:
     image: redis:alpine
@@ -87,6 +119,8 @@ services:
       - ./application/redis.conf:/usr/local/etc/redis/redis.conf
     environment:
       - REDIS_REPLICATION_MODE=master
+    networks:
+      - node_net
 
   minio1:
     <<: *minio-common
@@ -94,6 +128,8 @@ services:
     volumes:
       - data1-1:/data1
       - data1-2:/data2
+    networks:
+      - node_net
 
   minio2:
     <<: *minio-common
@@ -101,6 +137,8 @@ services:
     volumes:
       - data2-1:/data1
       - data2-2:/data2
+    networks:
+      - node_net
 
   minio3:
     <<: *minio-common
@@ -108,6 +146,8 @@ services:
     volumes:
       - data3-1:/data1
       - data3-2:/data2
+    networks:
+      - node_net
 
   minio4:
     <<: *minio-common
@@ -115,6 +155,8 @@ services:
     volumes:
       - data4-1:/data1
       - data4-2:/data2
+    networks:
+      - node_net
 
   nginx:
     image: nginx:1.19.2-alpine
@@ -129,6 +171,8 @@ services:
       - minio2
       - minio3
       - minio4
+    networks:
+      - node_net
 
 ## By default this config uses default local driver,
 ## For custom volumes replace with volume driver configuration.

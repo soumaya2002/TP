@@ -27,3 +27,5 @@ phpdocker/data/mysql/db/
 ###< squizlabs/php_codesniffer ###
 
 application/minio_data/
+
+.env.docker
