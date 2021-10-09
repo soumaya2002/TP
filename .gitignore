@@ -25,3 +25,7 @@ phpdocker/data/mysql/db/
 /.phpcs-cache
 /phpcs.xml
 ###< squizlabs/php_codesniffer ###
+
+application/minio_data/
+
+.env.docker

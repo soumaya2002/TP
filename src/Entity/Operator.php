@@ -12,13 +12,15 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Operator
  *
  * @ORM\Entity(repositoryClass="App\Repository\OperatorRepository")
+ * @method string getUserIdentifier()
  */
-class Operator implements UserAppInterface, UserDataOperatorInterface
+final class Operator implements UserInterface, UserAppInterface, UserDataOperatorInterface
 {
     /**
      * @ORM\Id()
@@ -30,6 +32,19 @@ class Operator implements UserAppInterface, UserDataOperatorInterface
     {
         return $this->id;
     }
+
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private array $roles = [];
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        $roles[] = ['ROLE_USER'];
+        return array_unique($roles);
+    }
+
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -46,6 +61,7 @@ class Operator implements UserAppInterface, UserDataOperatorInterface
         return $this;
     }
 
+
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
      */
@@ -60,6 +76,7 @@ class Operator implements UserAppInterface, UserDataOperatorInterface
         $this->lastName = $lastName;
         return $this;
     }
+
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -77,11 +94,89 @@ class Operator implements UserAppInterface, UserDataOperatorInterface
         return $this;
     }
 
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private string $password;
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+        return $this;
+    }
+
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private string $salt;
+    public function getSalt(): string
+    {
+        return $this->salt;
+    }
+
+
+    /**
+     * @see UserInterface
+     */
+    private string $plainTextPassword;
+    public function getPlainTextPassword(): string
+    {
+        return $this->plainTextPassword;
+    }
+
+    public function setPlainTextPassword(string $plainTextPassword): self
+    {
+        $this->plainTextPassword = $plainTextPassword;
+        return $this;
+    }
+
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): bool
+    {
+        $this->plainTextPassword = '';
+        return true;
+    }
+
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private string $username;
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
+    public function setUserName(string $username): self
+    {
+        $this->username = $username;
+        return $this;
+    }
+
+    public function __call(string $name, array $arguments)
+    {
+        // TODO: Implement @method string getUserIdentifier()
+    }
+
+
     public function __construct()
     {
         $this->id = 0;
         $this->firstName = '';
         $this->lastName = '';
         $this->comments = '';
+        $this->password = '';
+        $this->salt = '';
+        $this->plainTextPassword = '';
+        $this->username = '';
     }
 }

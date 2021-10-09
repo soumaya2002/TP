@@ -13,6 +13,15 @@ php-soap php-intl php-sodium php-gmp
 #Special Brice POTE le 14/07/2020
 RUN apt-get -y --no-install-recommends install  wget git dos2unix sshpass tree yarn vim mysql-client openssh-client
 
+#Install Blackfire.io SensioLabs Profiler
+RUN wget -q -O - https://packages.blackfire.io/gpg.key | apt-key add -
+RUN echo "deb http://packages.blackfire.io/debian any main" | tee /etc/apt/sources.list.d/blackfire.list
+RUN apt-get update && apt-get -y install blackfire blackfire-php
+
+RUN blackfire agent:config \
+              --server-id=${BLACKFIRE_SERVER_ID} \
+              --server-token=${BLACKFIRE_SERVER_TOKEN} \
+
 # Cleaing the sources packets
 RUN apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
@@ -35,4 +44,7 @@ RUN dos2unix /usr/bin/install_composer
 
 #Special Brice POTE le 05/02/2021 Install properly composer
 RUN install_composer
+
+
+
 
