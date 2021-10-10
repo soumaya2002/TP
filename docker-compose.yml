@@ -22,20 +22,19 @@ x-minio-common: &minio-common
 
 services:
 
-  blackfire:
-    image: blackfire/blackfire:2
-    ports: [ "${BLACKFIRE_HOSTS}" ]
-    command: blackfire curl http://webserver
-    environment:
-      # Exposes BLACKFIRE_* environment variables from the host
-      BLACKFIRE_SERVER_ID: ${BLACKFIRE_SERVER_ID}
-      BLACKFIRE_SERVER_TOKEN: ${BLACKFIRE_SERVER_TOKEN}
-      BLACKFIRE_CLIENT_ID: ${BLACKFIRE_CLIENT_ID}
-      BLACKFIRE_CLIENT_TOKEN: ${BLACKFIRE_CLIENT_TOKEN}
-      BLACKFIRE_LOG_LEVEL: ${BLACKFIRE_LOG_LEVEL}
-      BLACKFIRE_HOSTS: ${BLACKFIRE_LOG_LEVEL}
-    networks:
-      - node_net
+#  blackfire_agent:
+#    image: blackfire/blackfire:2
+#    ports: [ "${BLACKFIRE_PORT}" ]
+#    command: blackfire curl http://webserver
+#    environment:
+#      # Exposes BLACKFIRE_* environment variables from the host
+#      BLACKFIRE_SERVER_ID: ${BLACKFIRE_SERVER_ID}
+#      BLACKFIRE_SERVER_TOKEN: ${BLACKFIRE_SERVER_TOKEN}
+#      BLACKFIRE_CLIENT_ID: ${BLACKFIRE_CLIENT_ID}
+#      BLACKFIRE_CLIENT_TOKEN: ${BLACKFIRE_CLIENT_TOKEN}
+#      BLACKFIRE_LOG_LEVEL: ${BLACKFIRE_LOG_LEVEL}
+#    networks:
+#      - node_net
 
   memcached:
     env_file: .env.local
@@ -101,11 +100,13 @@ services:
       BLACKFIRE_CLIENT_TOKEN: ${BLACKFIRE_CLIENT_TOKEN}
       BLACKFIRE_LOG_LEVEL: ${BLACKFIRE_LOG_LEVEL}
       BLACKFIRE_HOSTS: ${BLACKFIRE_LOG_LEVEL}
+      PHP_INI_DIR: /etc/php/8.0/fpm/conf.d/
     container_name: ${CONTAIN_NAME}php-fpm
     working_dir: /application
     volumes:
       - .:/application
       - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/8.0/fpm/conf.d/99-overrides.ini
+      - ./phpdocker/nginx/zz-blackfire.ini:/etc/nginx/conf.d/zz-blackfire.ini
     networks:
       - node_net
 

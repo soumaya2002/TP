@@ -11,16 +11,18 @@ php-xdebug php-bcmath php-bz2 php-gd \
 php-soap php-intl php-sodium php-gmp
 
 #Special Brice POTE le 14/07/2020
-RUN apt-get -y --no-install-recommends install  wget git dos2unix sshpass tree yarn vim mysql-client openssh-client
+RUN apt-get -y --no-install-recommends install  wget git dos2unix sshpass tree \
+    yarn vim mysql-client openssh-client gnupg2
 
 #Install Blackfire.io SensioLabs Profiler
-RUN wget -q -O - https://packages.blackfire.io/gpg.key | apt-key add -
-RUN echo "deb http://packages.blackfire.io/debian any main" | tee /etc/apt/sources.list.d/blackfire.list
-RUN apt-get update && apt-get -y install blackfire blackfire-php
-
-RUN blackfire agent:config \
-              --server-id=${BLACKFIRE_SERVER_ID} \
-              --server-token=${BLACKFIRE_SERVER_TOKEN} \
+#RUN version=$(php -r "echo PHP_MAJOR_VERSION.PHP_MINOR_VERSION;") \
+#    && architecture=$(uname -m) \
+#    && curl -A "Docker" -o /tmp/blackfire-probe.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/probe/php/linux/$architecture/$version \
+#    && mkdir -p /tmp/blackfire \
+#    && tar zxpf /tmp/blackfire-probe.tar.gz -C /tmp/blackfire \
+#    && mv /tmp/blackfire/blackfire-*.so $(php -r "echo ini_get ('extension_dir');")/blackfire.so \
+#    && printf "extension=blackfire.so\nblackfire.agent_socket=tcp://blackfire:8307\n" > /etc/php/8.0/fpm/conf.d/blackfire.ini \
+#    && rm -rf /tmp/blackfire /tmp/blackfire-probe.tar.gz
 
 # Cleaing the sources packets
 RUN apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
@@ -45,6 +47,5 @@ RUN dos2unix /usr/bin/install_composer
 #Special Brice POTE le 05/02/2021 Install properly composer
 RUN install_composer
 
-
-
-
+#Launch Blacfire agent
+#RUN blackfire-agent agent:start
