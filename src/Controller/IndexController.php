@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of donbrico/sp-agri-pro.
  *
@@ -19,7 +20,8 @@ final class IndexController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(): Response
     {
-        phpinfo();die;
+//        phpinfo();
+//        die;
         return $this->render('index/index.html.twig', [
             'controller_name' => 'IndexController',
         ]);
