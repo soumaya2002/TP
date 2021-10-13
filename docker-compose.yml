@@ -25,14 +25,13 @@ services:
   blackfire_agent:
     image: blackfire/blackfire:2
     ports: [ "${BLACKFIRE_PORT}" ]
-    command: blackfire curl http://webserver
     environment:
-      # Exposes BLACKFIRE_* environment variables from the host
       BLACKFIRE_SERVER_ID: ${BLACKFIRE_SERVER_ID}
       BLACKFIRE_SERVER_TOKEN: ${BLACKFIRE_SERVER_TOKEN}
       BLACKFIRE_CLIENT_ID: ${BLACKFIRE_CLIENT_ID}
       BLACKFIRE_CLIENT_TOKEN: ${BLACKFIRE_CLIENT_TOKEN}
       BLACKFIRE_LOG_LEVEL: ${BLACKFIRE_LOG_LEVEL}
+      BLACKFIRE_DISABLE_LEGACY_PORT: 1
     networks:
       - node_net
 
@@ -94,12 +93,14 @@ services:
       context: ./phpdocker/php-fpm
       dockerfile: Dockerfile
     environment:
+      BLACKFIRE_AGENT_SOCKET: "tcp://blackfire_agent:${BLACKFIRE_PORT}"
       BLACKFIRE_SERVER_ID: ${BLACKFIRE_SERVER_ID}
       BLACKFIRE_SERVER_TOKEN: ${BLACKFIRE_SERVER_TOKEN}
       BLACKFIRE_CLIENT_ID: ${BLACKFIRE_CLIENT_ID}
       BLACKFIRE_CLIENT_TOKEN: ${BLACKFIRE_CLIENT_TOKEN}
       BLACKFIRE_LOG_LEVEL: ${BLACKFIRE_LOG_LEVEL}
       BLACKFIRE_PORT: ${BLACKFIRE_PORT}
+      BLACKFIRE_DISABLE_LEGACY_PORT: 1
       PHP_INI_DIR: /etc/php/8.0/fpm/conf.d/
     container_name: ${CONTAIN_NAME}php-fpm
     working_dir: /application
@@ -169,9 +170,9 @@ services:
       - "9011:9011"
     depends_on:
       - minio1
-      - minio2
-      - minio3
-      - minio4
+#      - minio2
+#      - minio3
+#      - minio4
     networks:
       - node_net
 
