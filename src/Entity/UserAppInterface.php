@@ -13,9 +13,9 @@ namespace App\Entity;
 
 interface UserAppInterface
 {
-    public function getFirstName(): string;
-    public function setFirstsName(?string $firstName = null): self;
+    public function getFirstName(): ?string;
+    public function setFirstsName(string $firstName): self;
 
     public function getLastName(): string;
-    public function setLastName(?string $lastName = null): self;
+    public function setLastName(string $lastName): self;
 }
