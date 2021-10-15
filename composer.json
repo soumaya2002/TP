@@ -44,6 +44,8 @@
         "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
+        "dama/doctrine-test-bundle": "^6.6",
+        "jetbrains/phpstorm-attributes": "^1.0",
         "phpro/grumphp": "^1.5",
         "phpstan/phpstan": "^0.12.99",
         "phpunit/phpunit": "^9.5",
@@ -90,8 +92,8 @@
             "@auto-scripts"
         ],
         "run-qa": [
-            "vendor/bin/phpcs --extensions=php --report=full src/Entity",
-            "vendor/bin/phpstan analyse --level=5 src/Entity",
+            "vendor/bin/phpcs --extensions=php --report=full --ignore=./src/Service/splioTestTechnique.php src",
+            "vendor/bin/phpstan analyse --level=5 src",
             "php bin/phpunit --testdox"
         ]
     },

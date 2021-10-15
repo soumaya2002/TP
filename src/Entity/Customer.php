@@ -13,15 +13,8 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-use JetBrains\PhpStorm\Pure;
 
-/**
- * Operator
- *
- * @ORM\Entity(repositoryClass="App\Repository\OperatorRepository")
- * @method string getUserIdentifier()
- */
-final class Operator implements UserInterface, UserAppInterface
+class Customer implements UserInterface, UserAppInterface, UserDataCustomerInterface
 {
     /**
      * @ORM\Id()
@@ -29,20 +22,16 @@ final class Operator implements UserInterface, UserAppInterface
      * @ORM\Column(type="integer")
      */
     private int $id;
-
     public function getId(): int
     {
         return $this->id;
     }
 
-    //========================================================================================================
-    // UserAppInterface
-    //========================================================================================================
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $firstName;
-    public function getFirstName(): ?string
+    private string $firstName;
+    public function getFirstName(): string
     {
         return $this->firstName;
     }
@@ -63,31 +52,24 @@ final class Operator implements UserInterface, UserAppInterface
         return $this->lastName;
     }
 
-    public function setLastName(?string $lastName): self
+    public function setLastName(string $lastName = null): self
     {
-        $this->lastName = $lastName ?? null;
+        $this->lastName = $lastName;
         return $this;
     }
 
-
-    //========================================================================================================
-    // UserDataOperator
-    //========================================================================================================
-    private UserDataOperator $dataOperator;
-    public function setData(?string $comments): self
+    private ?string $adresse;
+    public function getAdresse(): ?string
     {
-        $this->dataOperator->setComment($comments ?? null);
+        return $this->adresse;
+    }
+
+    public function setAdresse(?string $_adresse = null): self
+    {
+        $this->adresse = $_adresse;
         return $this;
     }
-    public function getData(): ?string
-    {
-        return $this->dataOperator->getComments();
-    }
 
-
-    //========================================================================================================
-    // UserInterface
-    //========================================================================================================
     /**
      * @ORM\Column(type="json")
      */
@@ -102,8 +84,8 @@ final class Operator implements UserInterface, UserAppInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $password;
-    public function getPassword(): ?string
+    private string $password;
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -118,8 +100,8 @@ final class Operator implements UserInterface, UserAppInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $salt;
-    public function getSalt(): ?string
+    private string $salt;
+    public function getSalt(): string
     {
         return $this->salt;
     }
@@ -128,15 +110,15 @@ final class Operator implements UserInterface, UserAppInterface
     /**
      * @see UserInterface
      */
-    private ?string $plainTextPassword;
-    public function getPlainTextPassword(): ?string
+    private string $plainTextPassword;
+    public function getPlainTextPassword(): string
     {
         return $this->plainTextPassword;
     }
 
-    public function setPlainTextPassword(?string $plainTextPassword): self
+    public function setPlainTextPassword(string $plainTextPassword): self
     {
-        $this->plainTextPassword = $plainTextPassword ?? null;
+        $this->plainTextPassword = $plainTextPassword;
         return $this;
     }
 
@@ -144,15 +126,15 @@ final class Operator implements UserInterface, UserAppInterface
     /**
      * @see UserInterface
      */
-    public function eraseCredentials(): self
+    public function eraseCredentials(): bool
     {
-        $this->plainTextPassword = null;
-        return $this;
+        $this->plainTextPassword = '';
+        return true;
     }
 
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255)
      */
     private string $username;
     public function getUsername(): string
@@ -171,16 +153,12 @@ final class Operator implements UserInterface, UserAppInterface
         // TODO: Implement @method string getUserIdentifier()
     }
 
-    #[Pure]
     public function __construct()
     {
         $this->id = 0;
-        $this->firstName = null;
-        $this->lastName = '';
-        $this->dataOperator = new UserDataOperator();
-        $this->password = null;
-        $this->salt = null;
-        $this->plainTextPassword = null;
+        $this->password = '';
+        $this->salt = '';
+        $this->plainTextPassword = '';
         $this->username = '';
     }
 }
