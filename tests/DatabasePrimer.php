@@ -31,6 +31,6 @@ final class DatabasePrimer
         // Run the schema update tool using our entity metadata
         $metadata = $entityManager->getMetadataFactory()->getAllMetadata();
         $schemaTool = new SchemaTool($entityManager);
-//        $schemaTool->updateSchema($metadata);
+        $schemaTool->updateSchema($metadata);
     }
 }
