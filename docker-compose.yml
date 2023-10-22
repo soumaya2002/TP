@@ -22,18 +22,18 @@ version: "3.7"
 
 services:
 
-  blackfire_agent:
-    image: blackfire/blackfire:2
-    ports: [ "${BLACKFIRE_PORT}" ]
-    environment:
-      BLACKFIRE_SERVER_ID: ${BLACKFIRE_SERVER_ID}
-      BLACKFIRE_SERVER_TOKEN: ${BLACKFIRE_SERVER_TOKEN}
-      BLACKFIRE_CLIENT_ID: ${BLACKFIRE_CLIENT_ID}
-      BLACKFIRE_CLIENT_TOKEN: ${BLACKFIRE_CLIENT_TOKEN}
-      BLACKFIRE_LOG_LEVEL: ${BLACKFIRE_LOG_LEVEL}
-      BLACKFIRE_DISABLE_LEGACY_PORT: 1
-    networks:
-      - node_net
+#  blackfire_agent:
+#    image: blackfire/blackfire:2
+#    ports: [ "${BLACKFIRE_PORT}" ]
+#    environment:
+#      BLACKFIRE_SERVER_ID: ${BLACKFIRE_SERVER_ID}
+#      BLACKFIRE_SERVER_TOKEN: ${BLACKFIRE_SERVER_TOKEN}
+#      BLACKFIRE_CLIENT_ID: ${BLACKFIRE_CLIENT_ID}
+#      BLACKFIRE_CLIENT_TOKEN: ${BLACKFIRE_CLIENT_TOKEN}
+#      BLACKFIRE_LOG_LEVEL: ${BLACKFIRE_LOG_LEVEL}
+#      BLACKFIRE_DISABLE_LEGACY_PORT: 1
+#    networks:
+#      - node_net
 
   memcached:
     env_file: .env.local
@@ -93,14 +93,14 @@ services:
       context: ./phpdocker/php-fpm
       dockerfile: Dockerfile
     environment:
-      BLACKFIRE_AGENT_SOCKET: "tcp://blackfire_agent:${BLACKFIRE_PORT}"
-      BLACKFIRE_SERVER_ID: ${BLACKFIRE_SERVER_ID}
-      BLACKFIRE_SERVER_TOKEN: ${BLACKFIRE_SERVER_TOKEN}
-      BLACKFIRE_CLIENT_ID: ${BLACKFIRE_CLIENT_ID}
-      BLACKFIRE_CLIENT_TOKEN: ${BLACKFIRE_CLIENT_TOKEN}
-      BLACKFIRE_LOG_LEVEL: ${BLACKFIRE_LOG_LEVEL}
-      BLACKFIRE_PORT: ${BLACKFIRE_PORT}
-      BLACKFIRE_DISABLE_LEGACY_PORT: 1
+#      BLACKFIRE_AGENT_SOCKET: "tcp://blackfire_agent:${BLACKFIRE_PORT}"
+#      BLACKFIRE_SERVER_ID: ${BLACKFIRE_SERVER_ID}
+#      BLACKFIRE_SERVER_TOKEN: ${BLACKFIRE_SERVER_TOKEN}
+#      BLACKFIRE_CLIENT_ID: ${BLACKFIRE_CLIENT_ID}
+#      BLACKFIRE_CLIENT_TOKEN: ${BLACKFIRE_CLIENT_TOKEN}
+#      BLACKFIRE_LOG_LEVEL: ${BLACKFIRE_LOG_LEVEL}
+#      BLACKFIRE_PORT: ${BLACKFIRE_PORT}
+#      BLACKFIRE_DISABLE_LEGACY_PORT: 1
       PHP_INI_DIR: /etc/php/8.0/fpm/conf.d/
     container_name: ${CONTAIN_NAME}php-fpm
     working_dir: /application
@@ -111,18 +111,18 @@ services:
     networks:
       - node_net
 
-  redis:
-    image: redis:alpine
-    command: redis-server --requirepass sOmE_sEcUrE_pAsS
-    ports:
-      - "${PORT_HOST_REDIS}:6379"
-    volumes:
-      - ./application/redis-data:/var/lib/redis
-      - ./application/redis.conf:/usr/local/etc/redis/redis.conf
-    environment:
-      - REDIS_REPLICATION_MODE=master
-    networks:
-      - node_net
+#  redis:
+#    image: redis:alpine
+#    command: redis-server --requirepass sOmE_sEcUrE_pAsS
+#    ports:
+#      - "${PORT_HOST_REDIS}:6379"
+#    volumes:
+#      - ./application/redis-data:/var/lib/redis
+#      - ./application/redis.conf:/usr/local/etc/redis/redis.conf
+#    environment:
+#      - REDIS_REPLICATION_MODE=master
+#    networks:
+#      - node_net
 
 #  minio1:
 #    <<: *minio-common
