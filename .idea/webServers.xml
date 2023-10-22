@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="7ba470cf-7e24-44da-a376-2b7af6b19ece" name="WSL_Ubuntu_SpAgPr" url="http://localhost">
+        <fileTransfer mountedRoot="\\wsl$\Ubuntu\home\donbrico\www\sp-agri-pro" accessType="MOUNT" port="0" />
+      </webServer>
+    </option>
+  </component>
+</project>
