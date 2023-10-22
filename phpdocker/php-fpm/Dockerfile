@@ -30,7 +30,7 @@ RUN apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/
 
 #Special Brice POTE le 01/01/2021 - Install Symfony bin
 RUN wget https://get.symfony.com/cli/installer -O - | bash
-RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
+#RUN mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
 #Special Brice POTE le 14/07/2020
 COPY ./cls /usr/bin/cls
