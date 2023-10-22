@@ -4,20 +4,20 @@
 version: "3.7"
 
 # Settings and configurations that are common for all containers
-x-minio-common: &minio-common
-  image: quay.io/minio/minio:RELEASE.2021-10-02T16-31-05Z
-  command: server --console-address ":9011" http://minio{1...4}/data{1...2}
-  expose:
-    - "9010"
-    - "9011"
-  environment:
-    MINIO_ROOT_USER: minio
-    MINIO_ROOT_PASSWORD: minio123
-  healthcheck:
-    test: ["CMD", "curl", "-f", "http://localhost:9010/minio/health/live"]
-    interval: 30s
-    timeout: 20s
-    retries: 3
+#x-minio-common: &minio-common
+#  image: quay.io/minio/minio:RELEASE.2021-10-02T16-31-05Z
+#  command: server --console-address ":9011" http://minio{1...4}/data{1...2}
+#  expose:
+#    - "9010"
+#    - "9011"
+#  environment:
+#    MINIO_ROOT_USER: minio
+#    MINIO_ROOT_PASSWORD: minio123
+#  healthcheck:
+#    test: ["CMD", "curl", "-f", "http://localhost:9010/minio/health/live"]
+#    interval: 30s
+#    timeout: 20s
+#    retries: 3
 
 
 services:
@@ -115,7 +115,7 @@ services:
     image: redis:alpine
     command: redis-server --requirepass sOmE_sEcUrE_pAsS
     ports:
-      - "${PORT_HOST_redis}:6379"
+      - "${PORT_HOST_REDIS}:6379"
     volumes:
       - ./application/redis-data:/var/lib/redis
       - ./application/redis.conf:/usr/local/etc/redis/redis.conf
@@ -124,69 +124,69 @@ services:
     networks:
       - node_net
 
-  minio1:
-    <<: *minio-common
-    hostname: minio1
-    volumes:
-      - data1-1:/data1
-      - data1-2:/data2
-    networks:
-      - node_net
+#  minio1:
+#    <<: *minio-common
+#    hostname: minio1
+#    volumes:
+#      - data1-1:/data1
+#      - data1-2:/data2
+#    networks:
+#      - node_net
 
-  minio2:
-    <<: *minio-common
-    hostname: minio2
-    volumes:
-      - data2-1:/data1
-      - data2-2:/data2
-    networks:
-      - node_net
+#  minio2:
+#    <<: *minio-common
+#    hostname: minio2
+#    volumes:
+#      - data2-1:/data1
+#      - data2-2:/data2
+#    networks:
+#      - node_net
 
-  minio3:
-    <<: *minio-common
-    hostname: minio3
-    volumes:
-      - data3-1:/data1
-      - data3-2:/data2
-    networks:
-      - node_net
+#  minio3:
+#    <<: *minio-common
+#    hostname: minio3
+#    volumes:
+#      - data3-1:/data1
+#      - data3-2:/data2
+#    networks:
+#      - node_net
 
-  minio4:
-    <<: *minio-common
-    hostname: minio4
-    volumes:
-      - data4-1:/data1
-      - data4-2:/data2
-    networks:
-      - node_net
+#  minio4:
+#    <<: *minio-common
+#    hostname: minio4
+#    volumes:
+#      - data4-1:/data1
+#      - data4-2:/data2
+#    networks:
+#      - node_net
 
-  nginx:
-    image: nginx:1.19.2-alpine
-    hostname: nginx
-    volumes:
-      - ./phpdocker/nginx/nginx_minio.conf:/etc/nginx/nginx.conf:ro
-    ports:
-      - "9010:9010"
-      - "9011:9011"
-    depends_on:
-      - minio1
+#  nginx:
+#    image: nginx:1.19.2-alpine
+#    hostname: nginx
+#    volumes:
+#      - ./phpdocker/nginx/nginx_minio.conf:/etc/nginx/nginx.conf:ro
+#    ports:
+#      - "9010:9010"
+#      - "9011:9011"
+#    depends_on:
+#      - minio1
 #      - minio2
 #      - minio3
 #      - minio4
-    networks:
-      - node_net
+#    networks:
+#      - node_net
 
 ## By default this config uses default local driver,
 ## For custom volumes replace with volume driver configuration.
-volumes:
-  data1-1:
-  data1-2:
-  data2-1:
-  data2-2:
-  data3-1:
-  data3-2:
-  data4-1:
-  data4-2:
+#volumes:
+#  data1-1:
+#  data1-2:
+#  data2-1:
+#  data2-2:
+#  data3-1:
+#  data3-2:
+#  data4-1:
+#  data4-2:
 
 # networking for the Redis container
 networks:
