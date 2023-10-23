@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/sp-agri-pro.iml" filepath="$PROJECT_DIR$/.idea/sp-agri-pro.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../sf5-project-cicd/.idea/sf5-project-cicd.iml" filepath="$PROJECT_DIR$/../sf5-project-cicd/.idea/sf5-project-cicd.iml" />
     </modules>
   </component>
 </project>

@@ -1,0 +1,2 @@
+cd ~/www/sf5-project-cicd && docker-compose --env-file ./docker/config/.env-docker down --remove-orphans
+
