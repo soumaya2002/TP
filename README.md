@@ -1,7 +1,6 @@
-# Super Agri PRO #
+# SF5 Project CI/CD #
 
-Application permettant la mise en relation de particuliers à la recherche de prestation de service, 
-avec des professionnels qualifiés à Abidjan (Côte d'Ivoire)
+Application Labo pour le projet CI/CD
 
 
 ## 📦 Installation 
@@ -14,7 +13,7 @@ composer install
 Dupliquer le fichier `.env` vers `.env.local` et définir les variables d'environnement : exemple la chaine de 
 connection Mysql
 ```dotenv
-DATABASE_URL=mysql://root:root@localhost:3306/mpce?serverVersion=8&charset:utf8mb4
+DATABASE_URL=mysql://root:root@localhost:3306/sf5-db?serverVersion=8&charset:utf8mb4
 ```
 
 ## ⚙️Configuration [DEV]

@@ -1,4 +1,3 @@
-
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
@@ -29,3 +28,5 @@ phpdocker/data/mysql/db/
 application/minio_data/
 
 .env.docker
+
+./.idea/sonarlint/
